@@ -1,6 +1,6 @@
 # EasyLogger
  
-#TODO
+# TODO
 
 - [ ] HtmlLogger
 - [ ] JsonLogger
