@@ -1,34 +1,29 @@
 package org.easylogger;
 
-import org.easylogger.logger.ConsoleLogger;
-import org.easylogger.logger.FileLogger;
-import org.easylogger.logger.Logger;
+import org.easylogger.logger.*;
 
 import java.io.FileNotFoundException;
 
 public class Main {
     public static void main(String[] args) {
-        Logger lg = new ConsoleLogger();
 
-        lg.debug("Debug");
-        lg.info("Info");
-        lg.warn("Warn");
-        lg.error("Error");
-        lg.critical("Crit");
-        lg.fatal("Fatal");
+        CompositeLogger composite = new CompositeLogger();
 
-        Logger lg2 = null;
+        composite.add(new ConsoleLogger());
         try {
-            lg2 = new FileLogger("testlog.txt");
+            composite.add(new FileLogger("testlog.txt"));
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
 
-        lg2.debug("Debug");
-        lg2.info("Info");
-        lg2.warn("Warn");
-        lg2.error("Error");
-        lg2.critical("Crit");
-        lg2.fatal("Fatal");
+        LOG.getInstance().setLogger(composite);
+
+
+        LOG.getInstance().debug("Debug");
+        LOG.getInstance().info("Info");
+        LOG.getInstance().warn("Warn");
+        LOG.getInstance().error("Error");
+        LOG.getInstance().critical("Crit");
+        LOG.getInstance().fatal("Fatal");
     }
 }
