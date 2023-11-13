@@ -7,14 +7,10 @@ import java.io.FileNotFoundException;
 public class Main {
     public static void main(String[] args) {
 
-        CompositeLogger composite = new CompositeLogger();
+        CompositeLogger composite = (CompositeLogger) LoggerFactory.getLogger(LoggerType.COMPOSITE);
 
-        composite.add(new ConsoleLogger());
-        try {
-            composite.add(new FileLogger("testlog.txt"));
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+        composite.add(LoggerFactory.getLogger(LoggerType.CONSOLE));
+        composite.add(LoggerFactory.getLogger(LoggerType.FILE, "testlog.txt"));
 
         LOG.getInstance().setLogger(composite);
 
