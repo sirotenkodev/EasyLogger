@@ -4,13 +4,11 @@
 
 ```
 // Create multy-logger
-CompositeLogger composite = new CompositeLogger();
-composite.add(new ConsoleLogger()); // Add logger for console
-try {
- composite.add(new FileLogger("testlog.txt")); // Add logger in file
-} catch (FileNotFoundException e) {
- throw new RuntimeException(e);
-}
+CompositeLogger composite = (CompositeLogger) LoggerFactory.getLogger(LoggerType.COMPOSITE);
+
+// Add loggers in multylogger
+composite.add(LoggerFactory.getLogger(LoggerType.CONSOLE));
+composite.add(LoggerFactory.getLogger(LoggerType.FILE, "testlog.txt"));
 
 LOG.getInstance().setLogger(composite); // Set global logger
 
